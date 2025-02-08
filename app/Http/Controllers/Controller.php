@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Validation\Validator;
 
 abstract class Controller extends BaseController
 {
@@ -19,4 +20,12 @@ abstract class Controller extends BaseController
         ], $code);
     }
 
+    protected function validationFail(Validator $validator): JsonResponse
+    {
+        return $this->returnJson(
+            $validator->errors(),
+            500,
+            message: 'Mohon isi data dengan benar!',
+        );
+    }
 }

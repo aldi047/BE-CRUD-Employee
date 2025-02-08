@@ -8,7 +8,7 @@ use Illuminate\Http\JsonResponse;
 
 class EmployeeController extends Controller
 {
-    public function getAllData(Request $request): \Illuminate\Http\JsonResponse
+    public function getAllData(Request $request):JsonResponse
     {
         try{
             $data = Employee::all();
@@ -16,13 +16,13 @@ class EmployeeController extends Controller
             if ($data) {
                 return $this->returnJson(
                     $data,
-                    message: 'Berhasil Mengambil Riwayat Pekerjaan Aktif'
+                    message: 'Berhasil Mengambil Data Pegawai'
                 );
             } else {
                 return $this->returnJson(
                     null,
                     code: 404,
-                    message: 'Biodata tidak ditemukan'
+                    message: 'Data Pegawai Tidak Ditemukan'
                 );
             }
         } catch(\Exception $exception){
