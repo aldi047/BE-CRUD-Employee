@@ -5,8 +5,10 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\AuthController;
 
-Route::prefix('auth')->group(static function () {
-    Route::post('/login', [AuthController::class, 'login']);
+Route::post('/login', [AuthController::class, 'login']);
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    dd("wewe");
+    return $request->user();
 });
 
 Route::middleware('auth:sanctum')->group(static function () {

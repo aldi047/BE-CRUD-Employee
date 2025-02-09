@@ -14,18 +14,18 @@ class AuthController extends Controller
     {
         try {
             $validator = Validator::make($request->all(), [
+                'email' => 'required',
                 'password' => 'required',
-                'nip' => 'required',
             ]);
             if ($validator->fails()) return $this->validationFail($validator);
 
-            if (!Auth::attempt($request->only('nip', 'password'))) {
+            if (!Auth::attempt($request->only('email', 'password'))) {
                 return $this->returnJson(
                     null, 401,
                     message: 'Email atau kata sandi salah'
                 );
             }
-            $user = User::where('nip', $request['nip'])->firstOrFail();
+            $user = User::where('email', $request['email'])->firstOrFail();
 
             $token = $user->createToken('auth_token')->plainTextToken;
 
